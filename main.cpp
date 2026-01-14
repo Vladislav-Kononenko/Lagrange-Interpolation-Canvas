@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 using namespace std;
 
 struct Point {
@@ -34,7 +35,8 @@ vector<Point> generate_points(
 
 int main() {
     for (const auto& point : generate_points(3, 100, 1000)) {
-        std::cout << "Point: (" << point.x << ", " << point.y << ")" << std::endl;
+        cout << fixed << setprecision(0);
+        cout << "Point: (" << point.x << ", " << point.y << ")" << endl;
     }
 
     return 0;
