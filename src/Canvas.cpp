@@ -51,7 +51,8 @@ void Canvas::handleEvent(const sf::Event& ev, const sf::RenderWindow& window) {
     if (const auto* mb = ev.getIf<sf::Event::MouseButtonPressed>()) {
         if (mb->button == sf::Mouse::Button::Left) {
             const sf::Vector2i mp = mb->position;
-            addPoint(sf::Vector2f(static_cast<float>(mp.x), static_cast<float>(mp.y)));
+            sf::Vector2f world = window.mapPixelToCoords(mp);
+            addPoint(sf::Vector2f(static_cast<float>(world.x), static_cast<float>(world.y)));
         } else if (mb->button == sf::Mouse::Button::Right) {
             removeLast();
         }
