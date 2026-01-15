@@ -1,7 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "Canvas.hpp"
+#include <cstdio>
 
 int main() {
+
+    freopen("/dev/null", "w", stderr);
+
     const unsigned width = 1000;
     const unsigned height = 700;
 
