@@ -1,3 +1,0 @@
-/home/user/CLionProjects/LagrangeInterpolationPolynomial/cmake-build-debug/CMakeFiles/LagrangeInterpolationPolynomial.dir
-/home/user/CLionProjects/LagrangeInterpolationPolynomial/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/user/CLionProjects/LagrangeInterpolationPolynomial/cmake-build-debug/CMakeFiles/rebuild_cache.dir
