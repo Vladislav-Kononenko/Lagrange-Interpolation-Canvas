@@ -28,7 +28,7 @@ double BarycentricLagrange::evaluate(const vector<double>& f, double t) const {
     if (n == 0 || f.size() != n) return 0.0;
     if (n == 1) return f[0];
 
-    // Если значение t совпадает с узлом, верните точное значение, чтобы избежать деления на ноль.
+    // Если значение t совпадает с узлом, верните точное значение, чтобы избежать деления на ноль
     const double eps = 1e-12;
     for (std::size_t i = 0; i < n; ++i) {
         if (std::abs(t - t_[i]) <= eps) return f[i];

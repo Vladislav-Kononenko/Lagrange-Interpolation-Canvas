@@ -19,7 +19,7 @@ Canvas::Canvas(const sf::Vector2u& size)
 }
 
 void Canvas::addPoint(const sf::Vector2f& p) {
-    // Избегайте точных дубликатов, чтобы параметры оставались четко определенными.
+    // Избегайте точных дубликатов, чтобы параметры оставались четко определенными
     if (!points_.empty()) {
         if (length(points_.back(), p) < 1e-6f) return;
     }
@@ -55,7 +55,7 @@ void Canvas::handleEvent(const sf::Event& ev, const sf::RenderWindow& window) {
 }
 
 void Canvas::draw(sf::RenderTarget& target) {
-    // Сначала нарисуйте кривую.
+    // Сначала нарисуйте кривую
     if (curve_.getVertexCount() >= 2) {
         target.draw(curve_);
     }
@@ -114,7 +114,7 @@ void Canvas::rebuildCurve() {
         ys[i] = static_cast<double>(points_[i].y);
     }
 
-    // Разрешение выборки пропорционально ширине.
+    // Разрешение выборки пропорционально ширине
     const unsigned sampleCount = std::max(2u, size_.x * 2u);
     curve_.resize(sampleCount);
     curve_.setPrimitiveType(sf::PrimitiveType::LineStrip);
