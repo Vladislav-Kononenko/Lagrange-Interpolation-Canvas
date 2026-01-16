@@ -17,15 +17,12 @@ if (NOT SFML_FOUND)
     message(FATAL_ERROR "SFML not found. Install SFML 3.x or 2.5+ and set SFML_DIR if needed.")
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-
 add_executable(LagrangeInterpolationPolynomial
     src/main.cpp
     src/Interpolator.cpp
     src/Canvas.cpp
     include/Canvas.hpp
     include/Interpolator.hpp
-        src/Interpolator.cpp
 )
 
 # Use an absolute include path to avoid generator quirks with relative paths

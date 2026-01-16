@@ -14,16 +14,12 @@ namespace {
 }
 
 Canvas::Canvas(const sf::Vector2u& size)
-#if defined(SFML_VERSION_MAJOR) && SFML_VERSION_MAJOR >= 3
-    : size_(size), curve_(sf::PrimitiveType::LineStrip)
-#else
-    : size_(size), curve_(sf::LineStrip)
-#endif
+: size_(size), curve_(sf::PrimitiveType::LineStrip)
 {
 }
 
 void Canvas::addPoint(const sf::Vector2f& p) {
-    // Avoid exact duplicates to keep parameters well-defined
+    // Избегайте точных дубликатов, чтобы параметры оставались четко определенными.
     if (!points_.empty()) {
         if (length(points_.back(), p) < 1e-6f) return;
     }
@@ -47,7 +43,6 @@ void Canvas::removeLast() {
 }
 
 void Canvas::handleEvent(const sf::Event& ev, const sf::RenderWindow& window) {
-#if defined(SFML_VERSION_MAJOR) && SFML_VERSION_MAJOR >= 3
     if (const auto* mb = ev.getIf<sf::Event::MouseButtonPressed>()) {
         if (mb->button == sf::Mouse::Button::Left) {
             const sf::Vector2i mp = mb->position;
@@ -57,25 +52,15 @@ void Canvas::handleEvent(const sf::Event& ev, const sf::RenderWindow& window) {
             removeLast();
         }
     }
-#else
-    if (ev.type == sf::Event::MouseButtonPressed) {
-        if (ev.mouseButton.button == sf::Mouse::Left) {
-            sf::Vector2i mp = sf::Mouse::getPosition(window);
-            addPoint(sf::Vector2f(static_cast<float>(mp.x), static_cast<float>(mp.y)));
-        } else if (ev.mouseButton.button == sf::Mouse::Right) {
-            removeLast();
-        }
-    }
-#endif
 }
 
 void Canvas::draw(sf::RenderTarget& target) {
-    // Draw curve first
+    // Сначала нарисуйте кривую.
     if (curve_.getVertexCount() >= 2) {
         target.draw(curve_);
     }
 
-    // Draw points as small circles
+    // Отображайте точки в виде маленьких кружков
     sf::CircleShape c(4.f);
     c.setOrigin(sf::Vector2f{4.f, 4.f});
     c.setFillColor(sf::Color::Red);
@@ -106,9 +91,9 @@ void Canvas::rebuildParameters() {
     }
     double total = t_.back();
     if (total <= 0.0) {
-        // All points are the same; keep zeros
+        // Все точки одинаковы; сохраняйте нули
     } else {
-        for (auto& v : t_) v /= total; // normalize to [0,1]
+        for (auto& v : t_) v /= total; // нормализовать до диапазона [0,1]
     }
 
     interp_.setNodes(t_);
@@ -122,21 +107,17 @@ void Canvas::rebuildCurve() {
         return;
     }
 
-    // Prepare value arrays
+    // Подготовьте массивы значений.
     vector<double> xs(n), ys(n);
     for (std::size_t i = 0; i < n; ++i) {
         xs[i] = static_cast<double>(points_[i].x);
         ys[i] = static_cast<double>(points_[i].y);
     }
 
-    // Sample resolution proportional to width
+    // Разрешение выборки пропорционально ширине.
     const unsigned sampleCount = std::max(2u, size_.x * 2u);
     curve_.resize(sampleCount);
-#if defined(SFML_VERSION_MAJOR) && SFML_VERSION_MAJOR >= 3
     curve_.setPrimitiveType(sf::PrimitiveType::LineStrip);
-#else
-    curve_.setPrimitiveType(sf::LineStrip);
-#endif
     for (unsigned k = 0; k < sampleCount; ++k) {
         double t = (sampleCount == 1) ? 0.0 : static_cast<double>(k) / static_cast<double>(sampleCount - 1);
         double px = interp_.evaluate(xs, t);

@@ -10,18 +10,12 @@ int main() {
     const unsigned height = 700;
 
     sf::RenderWindow window(
-#if defined(SFML_VERSION_MAJOR) && SFML_VERSION_MAJOR >= 3
-        sf::VideoMode({width, height})
-#else
-        sf::VideoMode(width, height)
-#endif
-        , "Lagrange Canvas (SFML)");
+    sf::VideoMode({width, height}), "Lagrange Canvas (SFML)");
     window.setFramerateLimit(60);
 
     Canvas canvas(window.getSize());
 
     while (window.isOpen()) {
-#if defined(SFML_VERSION_MAJOR) && SFML_VERSION_MAJOR >= 3
         while (const std::optional ev = window.pollEvent()) {
             if (ev->is<sf::Event::Closed>()) {
                 window.close();
@@ -33,20 +27,6 @@ int main() {
             }
             canvas.handleEvent(*ev, window);
         }
-#else
-        sf::Event event{};
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Escape) window.close();
-                if (event.key.code == sf::Keyboard::C) canvas.clear();
-                if (event.key.code == sf::Keyboard::Z) canvas.removeLast();
-            }
-            canvas.handleEvent(event, window);
-        }
-#endif
 
         window.clear(sf::Color(20, 20, 20));
         canvas.draw(window);

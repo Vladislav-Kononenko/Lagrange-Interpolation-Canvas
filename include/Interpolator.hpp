@@ -1,4 +1,4 @@
-// Simple barycentric Lagrange interpolator over scalar parameter t
+// Простой барицентрический интерполятор Лагранжа по скалярному параметру t
 #pragma once
 
 #include <vector>
@@ -8,7 +8,7 @@ public:
     void setNodes(const std::vector<double>& t);
     void computeWeights();
 
-    // Evaluate polynomial at t for data values f (same size as nodes)
+    // Вычислить значение полинома в точке t, используя заданные значения f (размерность массива f совпадает с количеством узлов).
     double evaluate(const std::vector<double>& f, double t) const;
 
     [[nodiscard]] bool ready() const { return !t_.empty() && t_.size() == w_.size(); }
