@@ -1,0 +1,12 @@
+# CLion / IntelliJ
+.idea/
+
+# CMake build directories
+cmake-build-*/
+build/
+
+# SFML / binaries
+*.o
+*.obj
+*.exe
+*.out
