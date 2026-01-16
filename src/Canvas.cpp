@@ -107,7 +107,7 @@ void Canvas::rebuildCurve() {
         return;
     }
 
-    // Подготовьте массивы значений.
+    // Подготовьте массивы значений
     vector<double> xs(n), ys(n);
     for (std::size_t i = 0; i < n; ++i) {
         xs[i] = static_cast<double>(points_[i].x);

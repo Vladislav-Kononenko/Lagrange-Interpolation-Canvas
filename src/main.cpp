@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp> // Simple and Fast Multimedia Library
 #include "Canvas.hpp"
 #include <cstdio>
 

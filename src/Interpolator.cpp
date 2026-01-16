@@ -28,7 +28,8 @@ double BarycentricLagrange::evaluate(const vector<double>& f, double t) const {
     if (n == 0 || f.size() != n) return 0.0;
     if (n == 1) return f[0];
 
-    // Если значение t совпадает с узлом, верните точное значение, чтобы избежать деления на ноль
+    // Математически барицентрическая формула содержит члены вида 1/(t - t_i).
+    // Если t == t_i, будет деление на ноль.
     const double eps = 1e-12;
     for (std::size_t i = 0; i < n; ++i) {
         if (std::abs(t - t_[i]) <= eps) return f[i];
@@ -45,4 +46,3 @@ double BarycentricLagrange::evaluate(const vector<double>& f, double t) const {
     if (den == 0.0) return 0.0;
     return num / den;
 }
-

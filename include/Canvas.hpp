@@ -21,7 +21,7 @@ private:
 
     sf::Vector2u size_;
     std::vector<sf::Vector2f> points_;
-    std::vector<double> t_;
+    std::vector<double> t_; //  Параметризация точек
     BarycentricLagrange interp_;
     sf::VertexArray curve_;
 };
